@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="github-webhook2",
-    version="0.0.1",
+    version="0.0.2",
     author="drunkpig",
     author_email="xuchaoo@gmail.com",
     description="github webhook",

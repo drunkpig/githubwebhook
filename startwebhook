@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from webhook import webhook
 import sys
 
