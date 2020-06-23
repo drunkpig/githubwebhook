@@ -1,4 +1,4 @@
-import webhook
+from webhook import webhook
 import sys
 
 if len(sys.argv)<4:
