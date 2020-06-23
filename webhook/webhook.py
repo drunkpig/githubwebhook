@@ -1,14 +1,11 @@
 import subprocess
-from logging.config import fileConfig
 import hmac
 from flask import Flask, jsonify
 from flask import request
-import json, logging
+import json
 from os import path
 import sys
 
-fileConfig("logging.ini")
-logger = logging.getLogger()
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -18,7 +15,7 @@ def __do_deploy():
     """
         部署
     """
-    curdir = path.dirname(path.abspath(__file__))
+    # curdir = path.dirname(path.abspath(__file__))
     deploy_script_file = app.config['deploy_script']
     cmd = f"bash  {deploy_script_file}"
 
@@ -34,12 +31,12 @@ def deploy():
     hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
 
     if not hmac.compare_digest(hashhex, signature):
-        logger.error("部署失败")
+        print("部署失败")
         return json.dumps({"success": 1, "message": "accessKey error"}), 500
     deploy_result = {}
-    logger.info("开始部署")
+    print("开始部署")
     deploy_result['success'], deploy_result['message'] = __do_deploy()
-    logger.info("部署成功")
+    print("部署成功")
     status_code = 500 if deploy_result['success']==1 else 200
     return jsonify(deploy_result), status_code
 
